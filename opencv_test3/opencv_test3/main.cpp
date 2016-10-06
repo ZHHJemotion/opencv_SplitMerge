@@ -3,7 +3,7 @@
 //  opencv_test3
 //
 //  Created by ZHHJemotion on 2016/10/6.
-//  Copyright Â© 2016å¹´ Lukas_Zhang. All rights reserved.
+//  Copyright ý 2016Äê Lukas_Zhang. All rights reserved.
 //
 
 #include <iostream>
@@ -26,6 +26,7 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
     
+    //system("color 5E");
     MultiChannelBlending();
     
     waitKey(1);
@@ -48,7 +49,7 @@ bool MultiChannelBlending()
     Mat imageBlueChannel;
     
     // read image
-    logoImage = imread(PATH+string("dota_logo.jpg"));
+    logoImage = imread(PATH+string("dota_logo.jpg"),0); // here: we can get the grayscale of dota_logo.jpg
     srcImage = imread(PATH+string("dota_jugg.jpg"));
     
     // Exception Handling
@@ -58,11 +59,11 @@ bool MultiChannelBlending()
     // split a 3-channel image to three alone channels image
     split(srcImage, channels);
     
-    // å°†åŽŸå›¾çš„è“è‰²é€šé“å¼•ç”¨è¿”å›žç»™imageBlueChannel,æ³¨æ„æ˜¯å¼•ç”¨ï¼Œç›¸å½“äºŽäºŒè€…ç­‰ä»·ï¼Œä¿®æ”¹å…¶ä¸­ä¸€ä¸ªå¦å¤–ä¸€ä¸ªè·Ÿç€å˜
+    // ½«Ô­Í¼µÄÀ¶É«Í¨µÀÒýÓÃ·µ»Ø¸øimageBlueChannel,×¢ÒâÊÇÒýÓÃ£¬Ïàµ±ÓÚ¶þÕßµÈ¼Û£¬ÐÞ¸ÄÆäÖÐÒ»¸öÁíÍâÒ»¸ö¸ú×Å±ä
     imageBlueChannel = channels.at(0);
     
-    // å°†åŽŸå›¾çš„è“è‰²é€šé“çš„ï¼ˆ500ï¼Œ250ï¼‰åæ ‡å¤„å³ä¸‹æ–¹çš„ä¸€å—åŒºåŸŸå’Œlogoå›¾è¿›è¡ŒåŠ æƒè¿ç®—ï¼Œå°†å¾—åˆ°çš„æ··åˆç»“æžœå­˜åˆ°imageBlueChannelä¸­
-    addWeighted(imageBlueChannel(Rect(400,200,logoImage.cols,logoImage.rows)), 1.0,logoImage,0.5,0,imageBlueChannel(Rect(400,200,logoImage.cols,logoImage.rows)));
+    // ½«Ô­Í¼µÄÀ¶É«Í¨µÀµÄ£¨500£¬250£©×ø±ê´¦ÓÒÏÂ·½µÄÒ»¿éÇøÓòºÍlogoÍ¼½øÐÐ¼ÓÈ¨ÔËËã£¬½«µÃµ½µÄ»ìºÏ½á¹û´æµ½imageBlueChannelÖÐ
+    addWeighted(imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)), 1.0,logoImage,0.5,0,imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)));
     
     // merge these three alone channels to a 3-channel image
     merge(channels, srcImage);
@@ -72,10 +73,65 @@ bool MultiChannelBlending()
     imshow("original&logoBlueChannelIamge", srcImage);
                 
                 
-                
-                
-                
-                
+    // =========================== Green Channel Session ===========================
+    
+    Mat imageGreenChannel;
+    
+    // read image
+    logoImage = imread(PATH+string("dota_logo.jpg"),0); // here: we can get the grayscale of dota_logo.jpg
+    srcImage = imread(PATH+string("dota_jugg.jpg"));
+    
+    // Exception Handling
+    if(!logoImage.data) {printf("Error: we can't read logoImage!"); return false;}
+    if(!srcImage.data) {printf("Error: we can't read srcImage!"); return false;}
+    
+    // split a 3-channel image to three alone channels image
+    split(srcImage, channels);
+    
+    // ½«Ô­Í¼µÄÂÌÉ«Í¨µÀÒýÓÃ·µ»Ø¸øimageBlueChannel,×¢ÒâÊÇÒýÓÃ£¬Ïàµ±ÓÚ¶þÕßµÈ¼Û£¬ÐÞ¸ÄÆäÖÐÒ»¸öÁíÍâÒ»¸ö¸ú×Å±ä
+    imageGreenChannel = channels.at(1);
+    
+    // ½«Ô­Í¼µÄÂÌÉ«Í¨µÀµÄ£¨500£¬250£©×ø±ê´¦ÓÒÏÂ·½µÄÒ»¿éÇøÓòºÍlogoÍ¼½øÐÐ¼ÓÈ¨ÔËËã£¬½«µÃµ½µÄ»ìºÏ½á¹û´æµ½imageBlueChannelÖÐ
+    addWeighted(imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)), 1.0,logoImage,0.5,0,imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)));
+    
+    // merge these three alone channels to a 3-channel image
+    merge(channels, srcImage);
+    
+    // show the result
+    namedWindow("original&logoGreenChannelIamge");
+    imshow("original&logoGreenChannelIamge", srcImage);
+
+    
+    // =========================== Red Channel Session ===========================
+    
+    Mat imageRedChannel;
+    
+    // read image
+    logoImage = imread(PATH+string("dota_logo.jpg"),0); // here: we can get the grayscale of dota_logo.jpg
+    srcImage = imread(PATH+string("dota_jugg.jpg"));
+    
+    // Exception Handling
+    if(!logoImage.data) {printf("Error: we can't read logoImage!"); return false;}
+    if(!srcImage.data) {printf("Error: we can't read srcImage!"); return false;}
+    
+    // split a 3-channel image to three alone channels image
+    split(srcImage, channels);
+    
+    // ½«Ô­Í¼µÄºìÉ«Í¨µÀÒýÓÃ·µ»Ø¸øimageBlueChannel,×¢ÒâÊÇÒýÓÃ£¬Ïàµ±ÓÚ¶þÕßµÈ¼Û£¬ÐÞ¸ÄÆäÖÐÒ»¸öÁíÍâÒ»¸ö¸ú×Å±ä
+    imageRedChannel = channels.at(2);
+    
+    // ½«Ô­Í¼µÄºìÉ«Í¨µÀµÄ£¨500£¬250£©×ø±ê´¦ÓÒÏÂ·½µÄÒ»¿éÇøÓòºÍlogoÍ¼½øÐÐ¼ÓÈ¨ÔËËã£¬½«µÃµ½µÄ»ìºÏ½á¹û´æµ½imageBlueChannelÖÐ
+    addWeighted(imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)), 1.0,logoImage,0.5,0,imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)));
+    
+    // merge these three alone channels to a 3-channel image
+    merge(channels, srcImage);
+    
+    // show the result
+    namedWindow("original&logoRedChannelIamge");
+    imshow("original&logoRedChannelIamge", srcImage);
+
+    
+    
     return true;
     
 }
